@@ -6,12 +6,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".MainActivity"
     >
 
     <com.dracul.customanalogclock.CustomAnalogClock
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:minuteHandColor="?colorAccent"
         app:secondHandColor="?colorAccent"
         app:hourHandColor="?colorAccent"
@@ -19,11 +20,15 @@
         app:minutesDotColor="?colorAccent"
         app:backgroundColor="@color/black"
         app:showMinutesDot="true"
-        app:minuteHandWidth="8dp"
+        app:minuteHandWidth="6dp"
         app:minutesDotRadius="1dp"
+        app:showCenterDot="true"
         app:hoursDotRadius="2dp"
-        app:radiusToHourNumbers="0.8"
+        app:centerDotRadius="6dp"
+        app:radiusToHourNumbers="0.7"
+        app:hourTextSize="16sp"
         app:outerCircleColor="@color/white"
+        app:outerCircleWidth="1dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

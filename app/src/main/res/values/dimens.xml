@@ -8,5 +8,6 @@
     <dimen name="second_hand">4dp</dimen>
     <dimen name="minut_hand">4dp</dimen>
     <dimen name="hour_hand">6dp</dimen>
+    <dimen name="center_dot_radius">8dp</dimen>
 
 </resources>

@@ -50,7 +50,10 @@ class CustomAnalogClock @JvmOverloads constructor(
     private val radiusToHourNumbers: Float
     private val minutesDotRadius: Int
     private val hoursDotRadius: Int
+    private val centerDotRadius: Int
     private val outerCircleColor: Int
+    private val outerCircleWidth: Int
+    private val showOuterCircle: Boolean
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomAnalogClock, defStyleAttr, 0)
@@ -72,6 +75,9 @@ class CustomAnalogClock @JvmOverloads constructor(
         hoursDotRadius = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_hoursDotRadius, resources.getDimensionPixelSize(R.dimen.radius_hour_dot))
         textColor = typedArray.getColor(R.styleable.CustomAnalogClock_textColor, Color.WHITE)
         outerCircleColor = typedArray.getColor(R.styleable.CustomAnalogClock_outerCircleColor, Color.WHITE)
+        outerCircleWidth = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_outerCircleWidth, resources.getDimensionPixelSize(R.dimen.stroke_width_outer_circle))
+        showOuterCircle = typedArray.getBoolean(R.styleable.CustomAnalogClock_showOuterCircle, true)
+        centerDotRadius = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_centerDotRadius, resources.getDimensionPixelSize(R.dimen.center_dot_radius))
 
 
         typedArray.recycle()
@@ -110,7 +116,9 @@ class CustomAnalogClock @JvmOverloads constructor(
 
         if (showCenterDot)
             paint.drawCenterDot(canvas)
-        paint.drawClockFace(canvas)
+
+        if (showOuterCircle)
+            paint.drawOuterCircle(canvas)
 
     }
 
@@ -132,19 +140,19 @@ class CustomAnalogClock @JvmOverloads constructor(
         canvas.drawLine(centerX, centerY, x.toFloat(), y.toFloat(), paint)
     }
 
-    private fun Paint.drawClockFace(canvas: Canvas) {
+    private fun Paint.drawOuterCircle(canvas: Canvas) {
         paint.isAntiAlias = true
         paint.color = outerCircleColor
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_outer_circle)
+        paint.strokeWidth = outerCircleWidth.toFloat()
         canvas.drawCircle(centerX, centerY, radius, paint)
         paint.reset()
     }
     private fun Paint.drawCenterDot(canvas: Canvas) {
         paint.isAntiAlias = true
         paint.color = centerDotColor
-        paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_radius)
-        canvas.drawCircle(centerX, centerY, radius / 25, paint)
+        paint.style = Paint.Style.FILL
+        canvas.drawCircle(centerX, centerY, centerDotRadius.toFloat(), paint)
         paint.reset()
     }
 
@@ -192,7 +200,7 @@ class CustomAnalogClock @JvmOverloads constructor(
         radius = min(w, h) / 2f - 20
 
         hourHandLength = radius * 0.5f
-        minuteHandLength = radius * 0.7f
+        minuteHandLength = radius * 0.65f
     }
 
     override fun onAnimationUpdate(animation: ValueAnimator) {
