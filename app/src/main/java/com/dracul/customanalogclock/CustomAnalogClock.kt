@@ -91,41 +91,39 @@ class CustomAnalogClock @JvmOverloads constructor(
         val minute = calendar.get(Calendar.MINUTE)
         val second = calendar.get(Calendar.SECOND)
         val milisecond = calendar.get(Calendar.MILLISECOND)
+        paint.drawBackground(canvas)
+        paint.drawDots(canvas)
 
-        drawBackground(canvas)
-        drawDots(canvas)
+        paint.drawNumbersText(canvas)
 
-        drawNumbersText(canvas)
-
-        paint.reset()
         val hourDegree = (hour + minute / 60f) * 30f
         paint.strokeWidth = resources.getDimension(R.dimen.hour_hand)
-        drawHand(canvas, hourDegree, hourHandLength, hourHandColor)
-        paint.reset()
+        paint.drawHand(canvas, hourDegree, hourHandLength, hourHandColor)
 
         val minuteDegree = (minute + second / 60f) * 6f
         paint.strokeWidth = minuteHandWidth.toFloat()
-        drawHand(canvas, minuteDegree, minuteHandLength, minuteHandColor)
+        paint.drawHand(canvas, minuteDegree, minuteHandLength, minuteHandColor)
 
-        paint.reset()
         val secondDegree = (second.toFloat() + (milisecond / 1000f)) * 6f
         paint.strokeWidth = resources.getDimension(R.dimen.second_hand)
-        drawHand(canvas, secondDegree, minuteHandLength, secondHandColor)
+        paint.drawHand(canvas, secondDegree, minuteHandLength, secondHandColor)
 
-        paint.reset()
         if (showCenterDot)
-            drawCenterDot(canvas)
-        drawClockFace(canvas)
+            paint.drawCenterDot(canvas)
+        paint.drawClockFace(canvas)
 
     }
 
-    private  fun drawBackground(canvas: Canvas){
+    private fun Paint.drawBackground(canvas: Canvas) {
         paint.color = backgroundColor
         paint.style = Paint.Style.FILL
         paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_outer_circle)
         canvas.drawCircle(centerX, centerY, radius, paint)
+        paint.reset()
     }
-    private fun drawHand(canvas: Canvas, degree: Float, length: Float, color: Int) {
+
+    private fun Paint.drawHand(canvas: Canvas, degree: Float, length: Float, color: Int) {
+        paint.isAntiAlias = true
         val handRadians = Math.toRadians(degree.toDouble())
         val x = centerX + sin(handRadians) * length
         val y = centerY - cos(handRadians) * length
@@ -134,39 +132,47 @@ class CustomAnalogClock @JvmOverloads constructor(
         canvas.drawLine(centerX, centerY, x.toFloat(), y.toFloat(), paint)
     }
 
-    private fun drawClockFace(canvas: Canvas) {
+    private fun Paint.drawClockFace(canvas: Canvas) {
+        paint.isAntiAlias = true
         paint.color = outerCircleColor
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_outer_circle)
         canvas.drawCircle(centerX, centerY, radius, paint)
+        paint.reset()
+    }
+    private fun Paint.drawCenterDot(canvas: Canvas) {
+        paint.isAntiAlias = true
+        paint.color = centerDotColor
+        paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_radius)
+        canvas.drawCircle(centerX, centerY, radius / 25, paint)
+        paint.reset()
     }
 
-    private fun drawDots(canvas: Canvas) {
+    private fun Paint.drawDots(canvas: Canvas) {
+        paint.isAntiAlias = true
         paint.style = Paint.Style.FILL
         for (i in 0..59) {
             val angle = Math.toRadians((i * 6).toDouble())
             val hourCircleX = centerX + ((radius * 0.9f) * sin(angle)).toFloat()
             val hourCircleY = centerY - (radius * 0.9f * cos(angle)).toFloat()
 
-
-
             if (i % 5 == 0) {
                 paint.color = hoursDotColor
-                canvas.drawCircle(hourCircleX, hourCircleY,hoursDotRadius.toFloat() , paint)
+                canvas.drawCircle(hourCircleX, hourCircleY, hoursDotRadius.toFloat(), paint)
             } else if (showMinutesDots) {
                 paint.color = minutesDotColor
                 canvas.drawCircle(hourCircleX, hourCircleY, minutesDotRadius.toFloat(), paint)
             }
         }
+        paint.reset()
     }
 
-    private fun drawNumbersText(canvas: Canvas) {
+    private fun Paint.drawNumbersText(canvas: Canvas) {
+        paint.isAntiAlias = true
+        paint.color = textColor
+        paint.textSize = hourTextSize.toFloat()
         for (i in 1..12) {
             val angle = Math.toRadians((i * 30).toDouble())
-
-            paint.color = textColor
-            paint.textSize = hourTextSize.toFloat()
-
             val bounds = Rect()
             val text = i.toString()
             val textWidth = paint.measureText(text)
@@ -179,12 +185,6 @@ class CustomAnalogClock @JvmOverloads constructor(
     }
 
 
-    private fun drawCenterDot(canvas: Canvas) {
-        paint.color = centerDotColor
-        paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_radius)
-        canvas.drawCircle(centerX, centerY, radius / 25, paint)
-    }
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         centerX = w / 2f
@@ -192,11 +192,14 @@ class CustomAnalogClock @JvmOverloads constructor(
         radius = min(w, h) / 2f - 20
 
         hourHandLength = radius * 0.5f
-        minuteHandLength = radius * 0.8f
+        minuteHandLength = radius * 0.7f
     }
 
     override fun onAnimationUpdate(animation: ValueAnimator) {
         invalidate()
     }
+
+
+
 
 }
