@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomAnalogClock">
+        <attr name="hourHandColor" format="color" />
+        <attr name="secondHandColor" format="color" />
+        <attr name="minuteHandColor" format="color" />
+        <attr name="hourHandWidth" format="dimension" />
+        <attr name="minuteHandWidth" format="dimension" />
+        <attr name="secondHandWidth" format="dimension" />
+        <attr name="centerDotColor" format="color" />
+        <attr name="minutesDotColor" format="color" />
+        <attr name="showCenterDot" format="boolean"/>
+        <attr name="showMinutesDot" format="boolean"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="hourTextSize" format="dimension"/>
+        <attr name="radiusToHourNumbers" format="float"/>
+    </declare-styleable>
+</resources>

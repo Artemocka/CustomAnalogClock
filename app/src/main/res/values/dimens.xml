@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="stroke_width_radius">8dp</dimen>
+    <dimen name="stroke_width_outer_circle">4dp</dimen>
+    <dimen name="stroke_hour_circle">6dp</dimen>
+    <dimen name="stroke_minut_circle">4dp</dimen>
+    <dimen name="text_size">20sp</dimen>
+    <dimen name="second_hand">4dp</dimen>
+    <dimen name="minut_hand">4dp</dimen>
+    <dimen name="hour_hand">6dp</dimen>
+
+</resources>
