@@ -9,10 +9,15 @@
         <attr name="secondHandWidth" format="dimension" />
         <attr name="centerDotColor" format="color" />
         <attr name="minutesDotColor" format="color" />
-        <attr name="showCenterDot" format="boolean"/>
-        <attr name="showMinutesDot" format="boolean"/>
-        <attr name="backgroundColor" format="color"/>
-        <attr name="hourTextSize" format="dimension"/>
-        <attr name="radiusToHourNumbers" format="float"/>
+        <attr name="hoursDotColor" format="color"/>
+        <attr name="showCenterDot" format="boolean" />
+        <attr name="showMinutesDot" format="boolean" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="hourTextSize" format="dimension" />
+        <attr name="radiusToHourNumbers" format="float" />
+        <attr name="minutesDotRadius" format="dimension" />
+        <attr name="hoursDotRadius" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="outerCircleColor" format="color" />
     </declare-styleable>
 </resources>

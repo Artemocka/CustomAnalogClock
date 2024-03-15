@@ -32,6 +32,7 @@ class CustomAnalogClock @JvmOverloads constructor(
     private var centerY = 0f
     private var radius = 0f
 
+
     private val hourHandColor: Int
     private val hourHandWidth: Int
     private val secondHandColor: Int
@@ -42,9 +43,14 @@ class CustomAnalogClock @JvmOverloads constructor(
     private val showMinutesDots: Boolean
     private val centerDotColor: Int
     private val minutesDotColor: Int
+    private val hoursDotColor: Int
     private val backgroundColor: Int
+    private val textColor: Int
     private val hourTextSize: Int
     private val radiusToHourNumbers: Float
+    private val minutesDotRadius: Int
+    private val hoursDotRadius: Int
+    private val outerCircleColor: Int
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomAnalogClock, defStyleAttr, 0)
@@ -55,12 +61,18 @@ class CustomAnalogClock @JvmOverloads constructor(
         minuteHandWidth = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_minuteHandWidth, resources.getDimensionPixelSize(R.dimen.minut_hand))
         secondHandWidth = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_minuteHandWidth, resources.getDimensionPixelSize(R.dimen.second_hand))
         centerDotColor = typedArray.getColor(R.styleable.CustomAnalogClock_centerDotColor, Color.RED)
-        minutesDotColor = typedArray.getColor(R.styleable.CustomAnalogClock_centerDotColor, Color.WHITE)
+        minutesDotColor = typedArray.getColor(R.styleable.CustomAnalogClock_minutesDotColor, Color.WHITE)
+        hoursDotColor = typedArray.getColor(R.styleable.CustomAnalogClock_hoursDotColor, Color.WHITE)
         showCenterDot = typedArray.getBoolean(R.styleable.CustomAnalogClock_showCenterDot, true)
         showMinutesDots = typedArray.getBoolean(R.styleable.CustomAnalogClock_showMinutesDot, true)
         backgroundColor = typedArray.getColor(R.styleable.CustomAnalogClock_backgroundColor, Color.TRANSPARENT)
         hourTextSize = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_hourTextSize, resources.getDimensionPixelSize(R.dimen.text_size))
         radiusToHourNumbers = typedArray.getFloat(R.styleable.CustomAnalogClock_radiusToHourNumbers, 0.8F)
+        minutesDotRadius = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_minutesDotRadius, resources.getDimensionPixelSize(R.dimen.radius_minut_dot))
+        hoursDotRadius = typedArray.getDimensionPixelSize(R.styleable.CustomAnalogClock_hoursDotRadius, resources.getDimensionPixelSize(R.dimen.radius_hour_dot))
+        textColor = typedArray.getColor(R.styleable.CustomAnalogClock_textColor, Color.WHITE)
+        outerCircleColor = typedArray.getColor(R.styleable.CustomAnalogClock_outerCircleColor, Color.WHITE)
+
 
         typedArray.recycle()
 
@@ -123,7 +135,7 @@ class CustomAnalogClock @JvmOverloads constructor(
     }
 
     private fun drawClockFace(canvas: Canvas) {
-        paint.color = Color.WHITE
+        paint.color = outerCircleColor
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = resources.getDimension(R.dimen.stroke_width_outer_circle)
         canvas.drawCircle(centerX, centerY, radius, paint)
@@ -136,14 +148,14 @@ class CustomAnalogClock @JvmOverloads constructor(
             val hourCircleX = centerX + ((radius * 0.9f) * sin(angle)).toFloat()
             val hourCircleY = centerY - (radius * 0.9f * cos(angle)).toFloat()
 
+
+
             if (i % 5 == 0) {
-                paint.color = Color.RED
-                paint.strokeWidth = resources.getDimension(R.dimen.stroke_hour_circle)
-                canvas.drawCircle(hourCircleX, hourCircleY, resources.getDimension(R.dimen.stroke_hour_circle), paint)
+                paint.color = hoursDotColor
+                canvas.drawCircle(hourCircleX, hourCircleY,hoursDotRadius.toFloat() , paint)
             } else if (showMinutesDots) {
-                paint.color = Color.WHITE
-                paint.strokeWidth = resources.getDimension(R.dimen.stroke_minut_circle)
-                canvas.drawCircle(hourCircleX, hourCircleY, resources.getDimension(R.dimen.stroke_minut_circle), paint)
+                paint.color = minutesDotColor
+                canvas.drawCircle(hourCircleX, hourCircleY, minutesDotRadius.toFloat(), paint)
             }
         }
     }
@@ -152,8 +164,7 @@ class CustomAnalogClock @JvmOverloads constructor(
         for (i in 1..12) {
             val angle = Math.toRadians((i * 30).toDouble())
 
-            paint.color = Color.WHITE
-            paint.strokeWidth = resources.getDimension(R.dimen.stroke_minut_circle)
+            paint.color = textColor
             paint.textSize = hourTextSize.toFloat()
 
             val bounds = Rect()

@@ -18,9 +18,11 @@
         app:centerDotColor="?colorTertiary"
         app:minutesDotColor="?colorSurfaceContainerLow"
         app:backgroundColor="@color/black"
-        app:showMinutesDot="false"
+        app:showMinutesDot="true"
         app:minuteHandWidth="8dp"
+        app:minutesDotRadius="1dp"
         app:radiusToHourNumbers="0.6"
+        app:outerCircleColor="@color/black"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
