@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeWidgetExample"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/wallpaper"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_margin="16dp"
+        android:text="Widget Example"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
+    <com.dracul.customanalogclock.CustomAnalogClock
+        android:id="@+id/material_clock"
+        android:layout_margin="16dp"
+        android:paddingTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="end|top"
+        app:radiusToHourNumbers="0.7"
+        />
+    <com.dracul.customanalogclock.CustomAnalogClock
+        android:id="@+id/custom_clock"
+        android:layout_margin="16dp"
+        android:paddingBottom="20dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="start|bottom"
+        app:radiusToHourNumbers="0.7"
+        app:hourHandColor="@color/black"
+        app:minuteHandColor="@color/black"
+        app:secondHandColor="@color/black"
+        app:centerDotColor="@color/black"
+        app:outerCircleColor="@color/black"
+        app:minutesDotColor="@color/black"
+        app:hoursDotColor="@color/black"
+        app:backgroundColor="@color/white"
+        app:textColor="@color/black"
+        />
+
+</FrameLayout>

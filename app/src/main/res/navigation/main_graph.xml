@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/AODExample"
+    >
+
+    <fragment
+        android:id="@+id/AODExample"
+        android:name="com.dracul.customanalogclock.AODExample"
+        android:label="fragment_aod_example"
+        tools:layout="@layout/fragment_aod_example"
+        />
+    <fragment
+        android:id="@+id/homeWidgetExample"
+        android:name="com.dracul.customanalogclock.HomeWidgetExample"
+        android:label="fragment_home_widget_example"
+        tools:layout="@layout/fragment_home_widget_example"
+        />
+    <fragment
+        android:id="@+id/timeZoneExample"
+        android:name="com.dracul.customanalogclock.TimeZoneExample"
+        android:label="fragment_time_zone_example"
+        tools:layout="@layout/fragment_time_zone_example"
+        />
+</navigation>

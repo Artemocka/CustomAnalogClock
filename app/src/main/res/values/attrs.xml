@@ -22,6 +22,5 @@
         <attr name="outerCircleColor" format="color" />
         <attr name="outerCircleWidth" format="dimension" />
         <attr name="showOuterCircle" format="boolean" />
-
     </declare-styleable>
 </resources>
